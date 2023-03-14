@@ -54,7 +54,10 @@ class C_Menu extends Controller {
 
     public function editPermission($parameters) {
         $this->model->editPermissionOnDB($parameters);
-        View::render('views/test.php');
+    }
+
+    public function deletePermission($parameters) {
+        $this->model->deletePermissionOnDB($parameters);
     }
 
 }

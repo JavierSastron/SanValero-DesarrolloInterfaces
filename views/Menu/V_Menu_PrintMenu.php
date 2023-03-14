@@ -18,11 +18,12 @@
                       <a><img class="editMenuIcon" src="imagenes/editar.png" onclick="getFormMenu('.$menu[$T_POSITION].','.$menu[$T_ORDER].', \'Editar\')"/></a>';
             foreach ($permissions as $permission) {
                 if ($menu[$T_ID] == $permission[$T_ID]) {
-                    $html .= ' <br>
+                    $html .= ' <div id="permissionContainer-'.$permission['id_Permiso'].'">
+                               <br>
                                <span id="permissionText-'.$permission['id_Permiso'].'">-> '.$permission['permiso'].'</span>
                                <a><img class="editMenuIcon" src="imagenes/editPermission.png" onclick="getEditPermissionForm('.$permission['id_Permiso'].')"/></a>
                                <a><img class="editMenuIcon" src="imagenes/deletePermission.png" onclick="deletePermission('.$permission['id_Permiso'].')"/></a>
-                               <div id="permissionEdit-'.$permission['id_Permiso'].'" class="menuForm"></div>';
+                               <div id="permissionEdit-'.$permission['id_Permiso'].'" class="menuForm"></div></div>';
                 }
             }
             $html .= '</li></div>';
@@ -43,11 +44,12 @@
                         <a><img class="editMenuIcon" src="imagenes/editar.png" onclick="getFormMenu('.$menu[$T_POSITION].','.$menu[$T_ORDER].', \'Editar\')"/></a>';
             foreach ($permissions as $permission) {
                 if ($menu[$T_ID] == $permission[$T_ID]) {
-                    $html .= ' <br>
+                    $html .= ' <div id="permissionContainer-'.$permission['id_Permiso'].'">
+                               <br>
                                <span id="permissionText-'.$permission['id_Permiso'].'">-> '.$permission['permiso'].'</span>
                                <a><img class="editMenuIcon" src="imagenes/editPermission.png" onclick="getEditPermissionForm('.$permission['id_Permiso'].')"/></a>
                                <a><img class="editMenuIcon" src="imagenes/deletePermission.png" onclick="deletePermission('.$permission['id_Permiso'].')"/></a>
-                               <div id="permissionEdit-'.$permission['id_Permiso'].'" class="menuForm"></div>';
+                               <div id="permissionEdit-'.$permission['id_Permiso'].'" class="menuForm"></div></div>';
                 }
             }
             $html .= '</li>

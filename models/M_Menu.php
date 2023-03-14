@@ -98,4 +98,10 @@ class M_Menu extends Model {
         $this->DAO->update($SQL);
     }
     
+    public function deletePermissionOnDB($parameters) {
+        $permissionId = '';
+        extract($parameters);
+        $SQL = 'DELETE FROM permisos WHERE id_Permiso='.$permissionId.'';
+        $this->DAO->update($SQL);
+    }
 }

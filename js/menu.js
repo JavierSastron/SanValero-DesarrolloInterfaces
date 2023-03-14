@@ -94,15 +94,16 @@ function editPermission(permissionId) {
     })
 }
 
-function deletePermission(permisionId) {
+function deletePermission(permissionId) {
+    let parameters = '&controller=Menu&method=deletePermission'
+                + '&permissionId=' + permissionId
 
     $.ajax({
         url: 'C_Ajax.php',
         type: 'POST',
         data: parameters,
         success: function(view) {
-            $('#menu-'+id_Padre+orden).before(view);
-            $('#menuForm-'+id_Padre+orden).html('');
+            $('#permissionContainer-'+permissionId).remove();
         }
     })
 }
