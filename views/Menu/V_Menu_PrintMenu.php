@@ -1,6 +1,6 @@
 <?php
 
-    function printConfigMenu($menu) {
+    function printConfigMenu($menu, $permissions) {
         $T_NAME = 'texto';
         $T_POSITION = 'id_Padre';
         $T_ORDER = 'orden';
@@ -15,9 +15,17 @@
                       <div id="menuForm-'.$menu[$T_POSITION].''.$menu[$T_ORDER].'" class="menuForm"></div>
                       <li  class="list-group-item">
                       <span id="menuText-'.$menu[$T_POSITION].''.$menu[$T_ORDER].'">'.$menu[$T_NAME].'</span>
-                      <a><img class="editMenuIcon" src="imagenes/editar.png" onclick="getFormMenu('.$menu[$T_POSITION].','.$menu[$T_ORDER].', \'Editar\')"/></a>
-                      </li>
-                      </div>';
+                      <a><img class="editMenuIcon" src="imagenes/editar.png" onclick="getFormMenu('.$menu[$T_POSITION].','.$menu[$T_ORDER].', \'Editar\')"/></a>';
+            foreach ($permissions as $permission) {
+                if ($menu[$T_ID] == $permission[$T_ID]) {
+                    $html .= ' <br>
+                               <span id="permissionText-'.$permission['id_Permiso'].'">-> '.$permission['permiso'].'</span>
+                               <a><img class="editMenuIcon" src="imagenes/editPermission.png" onclick="getEditPermissionForm('.$permission['id_Permiso'].')"/></a>
+                               <a><img class="editMenuIcon" src="imagenes/deletePermission.png" onclick="deletePermission('.$permission['id_Permiso'].')"/></a>
+                               <div id="permissionEdit-'.$permission['id_Permiso'].'" class="menuForm"></div>';
+                }
+            }
+            $html .= '</li></div>';
             if ( !isset($menu[$submenu]) ) {
                 $lastSubmenu = ''.$menu[$T_ID].'0';
                 $html.=
@@ -32,8 +40,17 @@
                       <div id="menuForm-'.$menu[$T_POSITION].''.$menu[$T_ORDER].'" class="menuForm menuC"></div>
                       <li class="menuC list-group-item">
                         <span id="menuText-'.$menu[$T_POSITION].''.$menu[$T_ORDER].'">'.$menu[$T_NAME].'</span>
-                        <a><img class="editMenuIcon" src="imagenes/editar.png" onclick="getFormMenu('.$menu[$T_POSITION].','.$menu[$T_ORDER].', \'Editar\')"/></a>
-                      </li>
+                        <a><img class="editMenuIcon" src="imagenes/editar.png" onclick="getFormMenu('.$menu[$T_POSITION].','.$menu[$T_ORDER].', \'Editar\')"/></a>';
+            foreach ($permissions as $permission) {
+                if ($menu[$T_ID] == $permission[$T_ID]) {
+                    $html .= ' <br>
+                               <span id="permissionText-'.$permission['id_Permiso'].'">-> '.$permission['permiso'].'</span>
+                               <a><img class="editMenuIcon" src="imagenes/editPermission.png" onclick="getEditPermissionForm('.$permission['id_Permiso'].')"/></a>
+                               <a><img class="editMenuIcon" src="imagenes/deletePermission.png" onclick="deletePermission('.$permission['id_Permiso'].')"/></a>
+                               <div id="permissionEdit-'.$permission['id_Permiso'].'" class="menuForm"></div>';
+                }
+            }
+            $html .= '</li>
                       </div>';
         }
 
@@ -42,7 +59,7 @@
 
         if (isset($menu[$submenu])) {
             foreach ($menu[$submenu] as $child) {
-                printConfigMenu($child);
+                printConfigMenu($child, $permissions);
             }
             //boton abajo
             $lastSubmenu = ''.$menu[$T_ID].'0';

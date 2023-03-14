@@ -19,7 +19,7 @@ $html .= '<nav class="navbar navbar-expand-lg navbar-light bg-light">
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class=navbar-nav>';
-foreach ($data as $option) {
+foreach ($data[0] as $option) {
     if ($option[$T_PERMISSION] == $public || $option[$T_PERMISSION] == $conectado) {
         if ($conectado == $option[$T_PERMISSION] || $option[$T_PERMISSION] == $public) {
             if (isset($option[$child])) {

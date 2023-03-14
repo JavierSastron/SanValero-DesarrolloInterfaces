@@ -64,3 +64,45 @@ function newMenu(id_Padre, orden) {
         }
     })
 }
+
+function getEditPermissionForm(permissionId) {
+    let parameters = '&controller=Menu&method=getPermissionForm'
+            +'&permissionId='+permissionId
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function(view) {
+            $('.menuForm').html('');
+            $('#permissionEdit-'+permissionId).html(view);
+        }
+    })
+}
+
+function editPermission(permissionId) {
+    let newName = document.getElementById('i-permissionName').value
+    let parameters = '&controller=Menu&method=editPermission'
+                + '&newName=' + newName + '&permissionId=' + permissionId
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function(view) {
+            $('.menuForm').html('');
+            $('#permissionText-'+permissionId).html('-> ' + newName);
+        }
+    })
+}
+
+function deletePermission(permisionId) {
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function(view) {
+            $('#menu-'+id_Padre+orden).before(view);
+            $('#menuForm-'+id_Padre+orden).html('');
+        }
+    })
+}

@@ -4,8 +4,8 @@
 
     $html .= '<div id=MenuConfig class="col-lg-8 col-md-8 col-sm-10">
               <ul class="list-group">';
-    foreach ($data as $menu) {
-        printConfigMenu($menu);
+    foreach ($data[0] as $menu) {
+        printConfigMenu($menu, $data[1]);
     }
     echo '
         <div id=menu-00>

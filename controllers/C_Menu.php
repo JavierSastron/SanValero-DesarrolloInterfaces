@@ -20,8 +20,8 @@ class C_Menu extends Controller {
     }
     public function getConfigMenu() {
         $route = 'views/Menu/V_Menu_Config.php';
-        $menu = $this->model->getMenu();
-        View::render($route, $menu);
+        $data = $this->model->getMenu();
+        View::render($route, $data);
     }
     public function menuFilterView() {
         $route = 'views/Menu/V_Menu_Filter.php';
@@ -45,6 +45,16 @@ class C_Menu extends Controller {
         $route = 'views/Menu/V_Menu_PrintOnlyOneMenu.php';
         $newMenu = $this->model->newMenuInDB($parameters);
         View::render($route, $newMenu);
+    }
+
+    public function getPermissionForm($parameters) {
+        $route = 'views/Menu/V_Menu_EditPermission.php';
+        View::render($route, $parameters);
+    }
+
+    public function editPermission($parameters) {
+        $this->model->editPermissionOnDB($parameters);
+        View::render('views/test.php');
     }
 
 }
