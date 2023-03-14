@@ -1,0 +1,28 @@
+.menuC {
+    margin-left: 2em;
+}
+
+.hiddenDiv {
+    display: none;
+}
+
+/*.btn-newMenu {
+    margin-left: 5em;
+}*/
+
+.newMenuIcon {
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+}
+
+.editMenuIcon {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+.lastNewMenu {
+    margin-left: 1em;
+}

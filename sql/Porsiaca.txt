@@ -1,0 +1,42 @@
+CREATE TABLE menus (
+	id_Opcion INT(11) PRIMARY KEY AUTO_INCREMENT,
+    texto VARCHAR(40) NOT NULL,
+    url VARCHAR(100),
+    id_Padre INT (11) NOT NULL,
+    orden INT (4) NOT NULL
+);
+
+CREATE TABLE permisos (
+	id_Permiso INT (11) PRIMARY KEY AUTO_INCREMENT,
+    id_Opcion INT (11),
+    num_Permiso INT (2) NOT NULL,
+    permiso VARCHAR(100) NOT NULL,
+    INDEX (id_Opcion),
+    CONSTRAINT FOREIGN KEY (id_Opcion) REFERENCES menus(id_Opcion)
+);
+
+CREATE TABLE roles (
+	id_Rol INT (11) PRIMARY KEY AUTO_INCREMENT,
+    rol VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE permisosrol (
+	id_Permiso INT (11),
+    id_Rol INT (11),
+    CONSTRAINT FOREIGN KEY (id_Permiso) REFERENCES permisos(id_Permiso),
+    CONSTRAINT FOREIGN KEY (id_Rol) REFERENCES roles(id_Rol)
+);
+
+CREATE TABLE permisosusuario (
+	id_Permiso INT (11),
+    id_Usuario INT (11),
+    CONSTRAINT FOREIGN KEY (id_Permiso) REFERENCES permisos(id_Permiso),
+    CONSTRAINT FOREIGN KEY (id_Usuario) REFERENCES usuarios(id_Usuario)
+);
+
+CREATE TABLE rolesusuarios (
+	id_Rol INT (11),
+    id_Usuario INT (11),
+    CONSTRAINT FOREIGN KEY (id_Rol) REFERENCES roles(id_Rol),
+    CONSTRAINT FOREIGN KEY (id_Usuario) REFERENCES usuarios(id_Usuario)
+);
