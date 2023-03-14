@@ -104,4 +104,22 @@ class M_Menu extends Model {
         $SQL = 'DELETE FROM permisos WHERE id_Permiso='.$permissionId.'';
         $this->DAO->update($SQL);
     }
+
+    public function addPermissionsOnDB($parameters) {
+        $menuId = '';
+        $permissionName = '';
+        extract($parameters);
+        $SQL = "SELECT num_Permiso FROM permisos WHERE id_Opcion=$menuId ORDER BY num_Permiso DESC LIMIT 1";
+        $tempNum = $this->DAO->consult($SQL);
+        $nextNum = $tempNum[0]['num_Permiso'] + 1;
+        $SQL = 'INSERT INTO permisos (id_Opcion, num_Permiso, permiso)
+                    VALUES('.$menuId.', '.$nextNum.', "'.$permissionName.'")';
+        $this->DAO->insert($SQL);
+        $completeData = [];
+        $SQL = "SELECT * FROM menus WHERE id_Opcion = $menuId";
+        $completeData[0] = $this->DAO->consult($SQL);
+        $SQL = "SELECT * FROM permisos WHERE id_Opcion = $menuId";
+        $completeData[1] = $this->DAO->consult($SQL);
+        return $completeData;
+    }
 }

@@ -60,6 +60,12 @@ class C_Menu extends Controller {
         $this->model->deletePermissionOnDB($parameters);
     }
 
+    public function newPermission($parameters) {
+        $route = 'views/Menu/V_Menu_ReloadPermission.php';
+        $data = $this->model->addPermissionsOnDB($parameters);
+        View::render($route, $data);
+    }
+
 }
 
 ?>
