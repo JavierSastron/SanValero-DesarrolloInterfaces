@@ -25,7 +25,7 @@ if (isset($menu[0])) {
     </div>
     <div class="form-group col-sm-11">
         <label for="i-menuRol" class="col-sm-11 col-form-label">Ámbito:</label>
-        <select class="custom-select " id="i-menuRol">
+        <select class="custom-select" id="i-menuRol">
             <option value="publico">Público</option>
             <option value="admin" <?php if ( $ambito == 'admin' ) { echo 'selected'; }?>>Admin</option>
         </select>
