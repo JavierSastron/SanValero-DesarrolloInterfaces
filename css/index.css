@@ -22,3 +22,9 @@ body{
 .cabecera {
     padding-top: 0.5em !important;
 }
+
+.iconSize {
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+}
