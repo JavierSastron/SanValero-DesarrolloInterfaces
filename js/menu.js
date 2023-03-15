@@ -94,6 +94,22 @@ function editPermission(permissionId) {
     })
 }
 
+function addRole() {
+    let roleName = document.getElementById().value
+    let parameters = '&controller=Menu&method=addRole'
+    + '&roleName=' + roleName
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+            $('.menuForm').html('');
+            $('#permissionText-' + permissionId).html('-> ' + newName);
+        }
+    })
+}
+
 function deletePermission(permissionId) {
     let parameters = '&controller=Menu&method=deletePermission'
         + '&permissionId=' + permissionId

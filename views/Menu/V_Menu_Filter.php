@@ -1,6 +1,6 @@
 <script src=js/menu.js></script>
 <?php
-
+    //require_once '';
 ?>
 <form id="menuSearch" name="menuSearch">
     <br>
@@ -20,19 +20,22 @@
                 </div>
                 <div class="col-lg-2">
                     <p class="mb-0 pl-3">ROLES</p>
-                    <select class="custom-select col-lg-12 mb-2">
-                        <option value="null">Roles...</option>
+                    <select id="select-Roles" class="custom-select col-lg-12 mb-2">
+                        <?php
+                            //echo createRoleList($data[1]);
+                        ?>
+                        <option value="">Roles...</option>
                     </select>
                 </div>
                 <div class="col-lg-2 d-flex align-items-end pb-2 justify-content-around">
-                    <a><img class="iconSize" src="imagenes/addMenu.png"></a>
+                    <a><img class="iconSize" src="imagenes/addMenu.png" onclick="addRole()"></a>
                     <a><img class="iconSize" src="imagenes/editar.png"></a>
                     <a><img class="iconSize" src="imagenes/deletePermission.png"></a>
                 </div>
 
                 <div class="col-lg-2 d-flex align-items-end pb-2">
                     <div>
-                        <input type="text" class="form-control mr-3" placeholder="Rol">
+                        <input type="text" id="i-roleName" class="form-control mr-3" placeholder="Rol">
                     </div>
                 </div>
                 <div class="col-lg-1 d-flex align-items-end pb-2">
