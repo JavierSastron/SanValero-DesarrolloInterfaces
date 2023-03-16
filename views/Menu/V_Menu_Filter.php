@@ -1,6 +1,7 @@
 <script src=js/menu.js></script>
 <?php
-    //require_once '';
+    require_once 'views/Menu/V_Menu_RoleList.php';
+    require_once 'views/Menu/V_Menu_UserList.php';
 ?>
 <form id="menuSearch" name="menuSearch">
     <br>
@@ -12,7 +13,9 @@
                 <div class="col-lg-2">
                     <p class="mb-0 pl-3">USUARIOS</p>
                     <select class="custom-select col-lg-12 mb-2">
-                        <option value="null">Usuarios...</option>
+                        <?php
+                            echo createUserList($data[0]);
+                        ?>
                     </select>
                 </div>
                 <div class="col-lg-1 d-flex align-items-end pb-2 justify-content-around">
@@ -22,9 +25,8 @@
                     <p class="mb-0 pl-3">ROLES</p>
                     <select id="select-Roles" class="custom-select col-lg-12 mb-2">
                         <?php
-                            //echo createRoleList($data[1]);
+                            echo createRoleList($data[1]);
                         ?>
-                        <option value="">Roles...</option>
                     </select>
                 </div>
                 <div class="col-lg-2 d-flex align-items-end pb-2 justify-content-around">

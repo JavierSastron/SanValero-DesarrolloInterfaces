@@ -23,9 +23,10 @@ class C_Menu extends Controller {
         $data = $this->model->getMenu();
         View::render($route, $data);
     }
-    public function menuFilterView() {
+    public function menuFilterView($parameters) {
         $route = 'views/Menu/V_Menu_Filter.php';
-        View::render($route);
+        $data = $this->model->getFilterInfo($parameters);
+        View::render($route, $data);
     }
     public function getFormMenuView($parameters) {
         $route = 'views/Menu/V_Menu_NewForm.php';

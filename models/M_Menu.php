@@ -122,4 +122,16 @@ class M_Menu extends Model {
         $completeData[1] = $this->DAO->consult($SQL);
         return $completeData;
     }
+
+    /**
+     * Return required info to print 'V_Menu_Filter.php'
+     */
+    public function getFilterInfo() {
+        $completeData = [];
+        $SQL = "SELECT * FROM usuarios";
+        $completeData[0] = $this->DAO->consult($SQL);
+        $SQL = "SELECT * FROM roles";
+        $completeData[1] = $this->DAO->consult($SQL);
+        return $completeData;
+    }
 }
