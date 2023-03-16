@@ -97,7 +97,7 @@ function editPermission(permissionId) {
 function addRole() {
     let roleName = document.getElementById().value
     let parameters = '&controller=Menu&method=addRole'
-    + '&roleName=' + roleName
+        + '&roleName=' + roleName
 
     $.ajax({
         url: 'C_Ajax.php',
@@ -125,9 +125,9 @@ function deletePermission(permissionId) {
 }
 
 function newPermission(menuId) {
-    let newPermissionName = document.getElementById('i-newPermissionName-'+menuId).value
+    let newPermissionName = document.getElementById('i-newPermissionName-' + menuId).value
     let parameters = '&controller=Menu&method=newPermission'
-        + '&menuId=' + menuId + '&permissionName='+newPermissionName
+        + '&menuId=' + menuId + '&permissionName=' + newPermissionName
 
     $.ajax({
         url: 'C_Ajax.php',
@@ -138,3 +138,70 @@ function newPermission(menuId) {
         }
     })
 }
+
+function addRole() {
+    let roleName = document.getElementById('i-roleName').value
+    if (roleName == "") {
+        return
+    }
+    let parameters = '&controller=Menu&method=addRole'
+        + '&roleName=' + roleName
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+            $('#select-Roles').html(view);
+            $('#i-roleName').val("");
+        }
+    })
+
+}
+
+function editRole() {
+    let roleId = document.getElementById('select-Roles').value
+    if (roleId = "") {
+        return
+    }
+    let newRoleName = document.getElementById('i-roleName').value
+    if (newRoleName == "") {
+        return
+    }
+    let parameters = '&controller=Menu&method=editRole'
+        + '&roleId=' + roleId + '&roleName=' + newRoleName
+
+    console.log(parameters)
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+            $('#select-Roles').html(view);
+        }
+    })
+}
+
+function deleteRole() {
+    let roleId = document.getElementById("select-Roles").value
+    if (roleId == "") {
+        return
+    }
+    let parameters = '&controller=Menu&method=deleteRole'
+        + '&roleId=' + roleId
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+            $('#select-Roles').html(view);
+        }
+    })
+}
+
+document.getElementById('select-Roles').addEventListener("change", function () {
+    let roleName = $('#select-Roles option:selected').html();
+    $('#i-roleName').val(roleName);
+})

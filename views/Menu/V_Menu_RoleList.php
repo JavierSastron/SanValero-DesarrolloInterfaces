@@ -3,8 +3,8 @@
     function createRoleList($roleList) {
         $html = '<option value="">Roles...</option>';
         foreach ($roleList as $role) {
-            $html .= '<option value="'.$role['rol'].'">'.$role['rol'].'</option>';
+            $html .= '<option value="'.$role['id_Rol'].'">'.$role['rol'].'</option>';
         }
-        return $html;
+        echo $html;
     }
 ?>

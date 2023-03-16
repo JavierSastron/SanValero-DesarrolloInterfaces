@@ -67,6 +67,24 @@ class C_Menu extends Controller {
         View::render($route, $data);
     }
 
+    public function addRole($parameters) {
+        require_once 'views/Menu/V_Menu_RoleList.php';
+        $roleList = $this->model->addRoleOnDB($parameters);
+        createRoleList($roleList);
+    }
+
+    public function deleteRole($parameters) {
+        require_once 'views/Menu/V_Menu_RoleList.php';
+        $roleList = $this->model->deleteRoleOnDB($parameters);
+        createRoleList($roleList);
+    }
+
+    public function editRole($parameters) {
+        require_once 'views/Menu/V_Menu_RoleList.php';
+        $roleList = $this->model->editRoleOnDB($parameters);
+        createRoleList($roleList);
+    }
+
 }
 
 ?>

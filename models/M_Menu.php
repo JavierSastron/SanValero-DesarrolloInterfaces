@@ -134,4 +134,34 @@ class M_Menu extends Model {
         $completeData[1] = $this->DAO->consult($SQL);
         return $completeData;
     }
+
+    public function addRoleOnDB($parameters) {
+        $roleName = "";
+        extract($parameters);
+        $SQL = 'INSERT INTO roles (rol) VALUES ("'.$roleName.'")';
+        $this->DAO->insert($SQL);
+        $SQL = "SELECT * FROM roles";
+        return $this->DAO->consult($SQL);
+    }
+
+    public function editRoleOnDB($parameters) {
+        $roleId = '';
+        $roleName = '';
+        extract($parameters);
+        echo $roleId;
+        echo $roleName;
+        $SQL = 'UPDATE roles SET rol="'.$roleName.'" WHERE id_Rol='.$roleId.'';
+        $this->DAO->update($SQL);
+        $SQL = "SELECT * FROM roles";
+        return $this->DAO->consult($SQL);
+    }
+
+    public function deleteRoleOnDB($parameters) {
+        $roleId = "";
+        extract($parameters);
+        $SQL = "DELETE FROM roles WHERE id_Rol = $roleId";
+        $this->DAO->update($SQL);
+        $SQL = "SELECT * FROM roles";
+        return $this->DAO->consult($SQL);
+    }
 }

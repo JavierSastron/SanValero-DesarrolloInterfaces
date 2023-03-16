@@ -10,39 +10,38 @@
 
         <div id="container-menuOptions" class="col-lg-8">
             <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <p class="mb-0 pl-3">USUARIOS</p>
                     <select class="custom-select col-lg-12 mb-2">
                         <?php
-                            echo createUserList($data[0]);
+                            createUserList($data[0]);
                         ?>
                     </select>
                 </div>
                 <div class="col-lg-1 d-flex align-items-end pb-2 justify-content-around">
                     <a><img class="iconSize" src="imagenes/enlazarRolUsuario.png" /></a>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <p class="mb-0 pl-3">ROLES</p>
                     <select id="select-Roles" class="custom-select col-lg-12 mb-2">
                         <?php
-                            echo createRoleList($data[1]);
+                            createRoleList($data[1]);
                         ?>
                     </select>
                 </div>
-                <div class="col-lg-2 d-flex align-items-end pb-2 justify-content-around">
-                    <a><img class="iconSize" src="imagenes/addMenu.png" onclick="addRole()"></a>
-                    <a><img class="iconSize" src="imagenes/editar.png"></a>
-                    <a><img class="iconSize" src="imagenes/deletePermission.png"></a>
+                <div class="col-lg-1 d-flex align-items-end pb-2 justify-content-around">
+                    
+                    <a><img class="iconSize" src="imagenes/deletePermission.png" onclick="deleteRole()"></a>
                 </div>
 
-                <div class="col-lg-2 d-flex align-items-end pb-2">
+                <div class="col-lg-3 d-flex align-items-end pb-2">
                     <div>
                         <input type="text" id="i-roleName" class="form-control mr-3" placeholder="Rol">
                     </div>
                 </div>
                 <div class="col-lg-1 d-flex align-items-end pb-2">
-
-                    <a><img class="iconSize" src="imagenes/aceptar.png"></a>
+                    <a><img class="iconSize" src="imagenes/addMenu.png" onclick="addRole()"></a>
+                    <a><img class="iconSize" src="imagenes/editar.png" onclick="editRole()"></a>
                 </div>
             </div>
 
