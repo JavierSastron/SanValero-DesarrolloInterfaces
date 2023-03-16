@@ -161,7 +161,7 @@ function addRole() {
 
 function editRole() {
     let roleId = document.getElementById('select-Roles').value
-    if (roleId = "") {
+    if (roleId == "null") {
         return
     }
     let newRoleName = document.getElementById('i-roleName').value
@@ -171,14 +171,13 @@ function editRole() {
     let parameters = '&controller=Menu&method=editRole'
         + '&roleId=' + roleId + '&roleName=' + newRoleName
 
-    console.log(parameters)
-
     $.ajax({
         url: 'C_Ajax.php',
         type: 'POST',
         data: parameters,
         success: function (view) {
             $('#select-Roles').html(view);
+            $('#i-roleName').val("");
         }
     })
 }
