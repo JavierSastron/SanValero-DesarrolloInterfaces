@@ -12,14 +12,15 @@
             <div class="row">
                 <div class="col-lg-3">
                     <p class="mb-0 pl-3">USUARIOS</p>
-                    <select class="custom-select col-lg-12 mb-2">
+                    <select id="select-Users" class="custom-select col-lg-12 mb-2">
                         <?php
                             createUserList($data[0]);
                         ?>
                     </select>
                 </div>
                 <div class="col-lg-1 d-flex align-items-end pb-2 justify-content-around">
-                    <a><img class="iconSize" src="imagenes/enlazarRolUsuario.png" /></a>
+                    <a><img class="iconSize" src="imagenes/enlazarRolUsuario.png"
+                            onclick="linkRoleToUser()"/></a>
                 </div>
                 <div class="col-lg-3">
                     <p class="mb-0 pl-3">ROLES</p>

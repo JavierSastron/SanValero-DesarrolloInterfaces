@@ -1,3 +1,7 @@
+/**
+ *  Opciones relacionadas con Menus
+ */
+
 function searchMenu() {
     let parameters = '&controller=Menu&method=getConfigMenu';
 
@@ -26,7 +30,6 @@ function getFormMenu(id_Padre, orden, funcion) {
 
 }
 
-//Check Parameters: To do
 function editMenu(id_Padre, orden) {
     let newName = document.getElementById('i-menuName').value
     let newAmbito = document.getElementById('i-menuRol').value
@@ -44,7 +47,6 @@ function editMenu(id_Padre, orden) {
     })
 }
 
-//Check Parameters: To do
 function newMenu(id_Padre, orden) {
     let newName = document.getElementById('i-menuName').value
     let newAmbito = document.getElementById('i-menuRol').value
@@ -66,7 +68,7 @@ function newMenu(id_Padre, orden) {
 
 function deleteMenu(id_Padre, orden) {
     let parameters = '&controller=Menu&method=deleteMenu&id_Padre=' + id_Padre
-    + '&orden=' + orden
+        + '&orden=' + orden
 
     $.ajax({
         url: 'C_Ajax.php',
@@ -78,6 +80,10 @@ function deleteMenu(id_Padre, orden) {
     })
 
 }
+
+/**
+ *  Opciones relacionadas con Permisos
+ */
 
 function getEditPermissionForm(permissionId) {
     let parameters = '&controller=Menu&method=getPermissionForm'
@@ -136,6 +142,10 @@ function newPermission(menuId) {
         }
     })
 }
+
+/**
+ *  Opciones relacionadas con Roles
+ */
 
 function addRole() {
     let roleName = document.getElementById('i-roleName').value
@@ -203,3 +213,27 @@ document.getElementById('select-Roles').addEventListener("change", function () {
     let roleName = $('#select-Roles option:selected').html();
     $('#i-roleName').val(roleName);
 })
+
+function linkRoleToUser() {
+    if (document.getElementById('select-Users') == "") {
+        return
+    }
+    if (document.getElementById('select-Roles') == "") {
+        return
+    }
+
+    let roleId = document.getElementById('select-Roles').value
+    let userId = document.getElementById('select-Users').value
+    let parameters = '&controller=Menu&method=linkRoleToUser'
+        + '&roleId=' + roleId + '&userId=' + userId
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+            
+        }
+    })
+
+}

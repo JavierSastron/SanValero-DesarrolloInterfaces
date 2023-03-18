@@ -85,6 +85,10 @@ class C_Menu extends Controller {
         createRoleList($roleList);
     }
 
+    public function linkRoleToUser($parameters) {
+        $this->model->linkRoleToUserInDB($parameters);
+    }
+
 }
 
 ?>

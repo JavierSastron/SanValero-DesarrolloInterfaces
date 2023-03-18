@@ -164,4 +164,13 @@ class M_Menu extends Model {
         $SQL = "SELECT * FROM roles";
         return $this->DAO->consult($SQL);
     }
+
+    public function linkRoleToUserInDB($parameters) {
+        $roleId = "";
+        $userId = "";
+        extract($parameters);
+
+        $SQL = "INSERT INTO rolesusuarios (id_Rol, id_Usuario) VALUES ($roleId, $userId)";
+        $this->DAO->insert($SQL);
+    }
 }
