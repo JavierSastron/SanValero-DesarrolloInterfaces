@@ -31,7 +31,6 @@ function editMenu(id_Padre, orden) {
     let newName = document.getElementById('i-menuName').value
     let newAmbito = document.getElementById('i-menuRol').value
     let newUrl = document.getElementById('i-menuFunction').value
-    let id_Opcion = document.getElementById('id_Opcion').value
     let parameters = '&controller=Menu&method=editMenu&id_Padre=' + id_Padre
         + '&orden=' + orden + '&name=' + newName + '&ambito=' + newAmbito + '&url=' + newUrl
     $.ajax({
@@ -65,6 +64,21 @@ function newMenu(id_Padre, orden) {
     })
 }
 
+function deleteMenu(id_Padre, orden) {
+    let parameters = '&controller=Menu&method=deleteMenu&id_Padre=' + id_Padre
+    + '&orden=' + orden
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+            $('#menu-' + id_Padre + orden).remove();
+        }
+    })
+
+}
+
 function getEditPermissionForm(permissionId) {
     let parameters = '&controller=Menu&method=getPermissionForm'
         + '&permissionId=' + permissionId
@@ -83,22 +97,6 @@ function editPermission(permissionId) {
     let newName = document.getElementById('i-permissionName').value
     let parameters = '&controller=Menu&method=editPermission'
         + '&newName=' + newName + '&permissionId=' + permissionId
-    $.ajax({
-        url: 'C_Ajax.php',
-        type: 'POST',
-        data: parameters,
-        success: function (view) {
-            $('.menuForm').html('');
-            $('#permissionText-' + permissionId).html('-> ' + newName);
-        }
-    })
-}
-
-function addRole() {
-    let roleName = document.getElementById().value
-    let parameters = '&controller=Menu&method=addRole'
-        + '&roleName=' + roleName
-
     $.ajax({
         url: 'C_Ajax.php',
         type: 'POST',
@@ -196,6 +194,7 @@ function deleteRole() {
         data: parameters,
         success: function (view) {
             $('#select-Roles').html(view);
+            $('#i-roleName').val("");
         }
     })
 }
