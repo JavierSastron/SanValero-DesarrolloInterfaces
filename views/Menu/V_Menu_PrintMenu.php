@@ -1,7 +1,7 @@
 <?php
 require_once 'views/Menu/V_Menu_PrintPermission.php';
 
-function printConfigMenu($menu, $permissions)
+function printConfigMenu($menu, $data)
 {
     $T_NAME = 'texto';
     $T_POSITION = 'id_Padre';
@@ -9,24 +9,38 @@ function printConfigMenu($menu, $permissions)
     $T_ID = 'id_Opcion';
     $submenu = 'suboption';
     global $html;
-    //Meter botón que hace aparecer el div de abajo
+
     $html .= '<div id=menu-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '>';
     $classChild = '';
+
+    // Añadir la clase CSS que diferencia a los hijos
     if ($menu[$T_POSITION] != 0) {
-        $classChild = 'menuC';
+        $classChild = ' menuC';
     }
-    $html .= '
-        <a><img class="newMenuIcon ' . $classChild . '" src="imagenes/addMenu.png"
+
+    // Interactuar con el menú
+    if (!isset($data[2])) {
+        $html .= '
+        <a><img class="newMenuIcon' . $classChild . '" src="imagenes/addMenu.png"
                 onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>
-        <div id="menuForm-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '" class="menuForm ' . $classChild . '"></div>
-        <li class="list-group-item ' . $classChild . '">
-        <span id="menuText-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '">' . $menu[$T_NAME] . '</span>
-        <a><img class="editMenuIcon" src="imagenes/editar.png"
-              onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ', \'Editar\')"/></a>
-        <a><img class="editMenuIcon" src="imagenes/deletePermission.png"
-              onclick="deleteMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>';
-    $html .= printPermission($menu, $permissions);
-    $html .= '  <br>
+        <div id="menuForm-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '"
+                class="menuForm' . $classChild . '"></div>';
+    }
+    $html .= '<li class="list-group-item' . $classChild . '">
+        <span id="menuText-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '">' . $menu[$T_NAME] . '</span>';
+    
+    // Interaccciones con el menú
+    if (!isset($data[2])) {
+        $html .='<a><img class="editMenuIcon" src="imagenes/editar.png"
+                        onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ', \'Editar\')"/></a>
+                <a><img class="editMenuIcon" src="imagenes/deletePermission.png"
+                        onclick="deleteMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>';
+    }
+    
+    $html .= printPermission($menu, $data);
+    // Añadir permisos
+    if (!isset($data[2])) {
+        $html .= '  <br>
         <div newPermissionCont-' . $menu[$T_ID] . '>
             <form id="f_newPermission class="border col-sm-5">
                 <div class="form-group">
@@ -39,20 +53,25 @@ function printConfigMenu($menu, $permissions)
                     </button>
                 </div>
             </form>
-        </div>
-        </li></div>';
+        </div>';
+    }
+    
+    $html .= '</li></div>';
 
     // Si es padre y no tiene hijos crea el botón de añadir hijo
-    if (!isset($menu[$submenu]) && $menu[$T_POSITION] == 0) {
-        $lastSubmenu = '' . $menu[$T_ID] . '0';
-        $html .=
-            '<div id=menu-' . $lastSubmenu . '>
-                    <a><img class="newMenuIcon menuC" src="imagenes/addMenu.png"
-                            onclick="getFormMenu(' . $menu[$T_ID] . ', 0)"/></a>
-                    <div id="menuForm-' . $lastSubmenu . '" class="menuForm menuC">
-                    </div>
-                </div>';
+    if (!isset($data[2])) {
+        if (!isset($menu[$submenu]) && $menu[$T_POSITION] == 0) {
+            $lastSubmenu = '' . $menu[$T_ID] . '0';
+            $html .=
+                '<div id=menu-' . $lastSubmenu . '>
+                        <a><img class="newMenuIcon menuC" src="imagenes/addMenu.png"
+                                onclick="getFormMenu(' . $menu[$T_ID] . ', 0)"/></a>
+                        <div id="menuForm-' . $lastSubmenu . '" class="menuForm menuC">
+                        </div>
+                    </div>';
+        }
     }
+    
 
     echo $html;
     $html = '';
@@ -60,17 +79,19 @@ function printConfigMenu($menu, $permissions)
     //Si tiene hijos imprimelos. Al final crea el botón de añadir hijo
     if (isset($menu[$submenu])) {
         foreach ($menu[$submenu] as $child) {
-            printConfigMenu($child, $permissions);
+            printConfigMenu($child, $data);
         }
 
         $lastSubmenu = '' . $menu[$T_ID] . '0';
-        echo '
+        if (!isset($data[2])) {
+            echo '
             <div id=menu-' . $lastSubmenu . '>
                 <a><img class="newMenuIcon menuC" src="imagenes/addMenu.png"
                         onclick="getFormMenu(' . $menu[$T_ID] . ', 0)"/></a><br>
                 <div id="menuForm-' . $lastSubmenu . '" class="menuForm menuC">
                 </div>
             </div>';
+        }
     }
 }
 

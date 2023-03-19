@@ -60,7 +60,8 @@
             <?php
                 require_once 'controllers/C_Menu.php';
                 $C_Menu = new C_Menu();
-                $C_Menu->getMenuView();
+                $parameters = [];
+                $C_Menu->getMenuView($parameters);
             ?>
 
             <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">

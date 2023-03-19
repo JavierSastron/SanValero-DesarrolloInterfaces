@@ -13,14 +13,14 @@ class C_Menu extends Controller {
     /**
      * Cargar vistas menu
      */
-    public function getMenuView() {
+    public function getMenuView($parameters) {
         $route = 'views/Menu/V_Menu.php';
-        $menu = $this->model->getMenu();
+        $menu = $this->model->getMenu($parameters);
         View::render($route, $menu);
     }
-    public function getConfigMenu() {
+    public function getConfigMenu($parameters) {
         $route = 'views/Menu/V_Menu_Config.php';
-        $data = $this->model->getMenu();
+        $data = $this->model->getMenu($parameters);
         View::render($route, $data);
     }
     public function menuFilterView($parameters) {
@@ -89,6 +89,9 @@ class C_Menu extends Controller {
         $this->model->linkRoleToUserInDB($parameters);
     }
 
+    public function changePermissionRole($parameters) {
+        $roleList = $this->model->changePermissionRoleOnDB($parameters);
+    }
 }
 
 ?>

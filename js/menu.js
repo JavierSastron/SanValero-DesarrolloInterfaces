@@ -3,8 +3,10 @@
  */
 
 function searchMenu() {
-    let parameters = '&controller=Menu&method=getConfigMenu';
-
+    let roleId = document.getElementById('select-Roles').value
+    let userId = document.getElementById('select-Users').value
+    let parameters = '&controller=Menu&method=getConfigMenu'
+        + '&roleId=' + roleId + '&userId=' + userId;
     $.ajax({
         url: 'C_Ajax.php',
         type: 'POST',
@@ -214,6 +216,10 @@ document.getElementById('select-Roles').addEventListener("change", function () {
     $('#i-roleName').val(roleName);
 })
 
+/**
+ * rolesusuarios
+ */
+
 function linkRoleToUser() {
     if (document.getElementById('select-Users') == "") {
         return
@@ -232,8 +238,31 @@ function linkRoleToUser() {
         type: 'POST',
         data: parameters,
         success: function (view) {
-            
+
         }
     })
 
+}
+
+/**
+ * permisosrol
+ */
+function changePermissionRole(permissionId) {
+    let isEnabled = 'false'
+    if ($('#c-PermissionRole-' + permissionId).is(':checked')) {
+        isEnabled = 'true'
+    }
+    let roleId = document.getElementById('select-Roles').value;
+    let parameters = '&controller=Menu&method=changePermissionRole'
+        + '&isEnabled=' + isEnabled + '&permissionId=' + permissionId
+        + '&roleId='+roleId
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+
+        }
+    })
 }

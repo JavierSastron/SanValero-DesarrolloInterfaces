@@ -13,7 +13,9 @@ class M_Menu extends Model {
     /**
      * Obtener lista menú ordenada
      */
-    public function getMenu() {
+    public function getMenu($parameters) {
+        $roleId = 'null';
+        extract($parameters);
         $SQL = "SELECT * FROM menus
                  ORDER BY id_Padre, orden";
         
@@ -29,8 +31,11 @@ class M_Menu extends Model {
         $completeData = [];
         $completeData[0] = $rightMenu;
         $SQL = "SELECT * FROM permisos ORDER BY id_Opcion, num_Permiso";
-        $permissions = $this->DAO->consult($SQL);
-        $completeData[1] = $permissions;
+        $completeData[1] = $this->DAO->consult($SQL);
+        if ($roleId != 'null') {
+            $SQL = "SELECT * FROM permisosrol WHERE id_Rol = $roleId";
+            $completeData[2] = $this->DAO->consult($SQL);
+        }
         return $completeData;
     }
 
@@ -172,5 +177,19 @@ class M_Menu extends Model {
 
         $SQL = "INSERT INTO rolesusuarios (id_Rol, id_Usuario) VALUES ($roleId, $userId)";
         $this->DAO->insert($SQL);
+    }
+
+    public function changePermissionRoleOnDB($parameters) {
+        $isEnabled = '';
+        $permissionId = '';
+        $roleId = '';
+        extract($parameters);
+        if ($isEnabled == 'true') {
+            $SQL = "INSERT INTO permisosrol (id_Permiso, id_Rol) VALUES ($permissionId, $roleId)";
+            $this->DAO->insert($SQL);
+        } else {
+            $SQL = "DELETE FROM permisosrol WHERE id_Permiso = $permissionId AND id_Rol = $roleId";
+            $this->DAO->update($SQL);
+        }
     }
 }
