@@ -15,6 +15,7 @@ class M_Menu extends Model {
      */
     public function getMenu($parameters) {
         $roleId = 'null';
+        $userId = '';
         extract($parameters);
         $SQL = "SELECT * FROM menus
                  ORDER BY id_Padre, orden";
@@ -32,9 +33,38 @@ class M_Menu extends Model {
         $completeData[0] = $rightMenu;
         $SQL = "SELECT * FROM permisos ORDER BY id_Opcion, num_Permiso";
         $completeData[1] = $this->DAO->consult($SQL);
-        if ($roleId != 'null') {
+        if ($roleId != 'null' && $userId != '') {
+            //todo
+            $SQL = "";
+        } elseif ($roleId != 'null') {
             $SQL = "SELECT * FROM permisosrol WHERE id_Rol = $roleId";
             $completeData[2] = $this->DAO->consult($SQL);
+        } elseif ($userId != '') {
+            $SQL = "SELECT DISTINCT permisos.id_Permiso, roles.rol
+                    FROM usuarios
+                    JOIN rolesusuarios ON usuarios.id_Usuario = rolesusuarios.id_Usuario
+                    JOIN permisosrol ON rolesusuarios.id_Rol = permisosrol.id_Rol
+                    JOIN permisos ON permisosrol.id_Permiso = permisos.id_Permiso
+                    JOIN roles ON permisosrol.id_Rol = roles.id_Rol
+                    WHERE usuarios.id_Usuario = $userId";
+            $permByRole = $this->DAO->consult($SQL);
+            $SQL = "SELECT id_Permiso FROM permisosusuario WHERE id_Usuario = $userId";
+            $userPerms = $this->DAO->consult($SQL);
+            $allPerms = [];
+            foreach ($userPerms as $userPerm) {
+                $allPerms[$userPerm['id_Permiso']] = [
+                    'id_Permiso' => $userPerm['id_Permiso'],
+                    'rol' => '',
+                ];
+            }
+
+            foreach ($permByRole as $perm) {
+                $allPerms[$perm['id_Permiso']] = [
+                    'id_Permiso' => $perm['id_Permiso'],
+                    'rol' => $perm['rol'],
+                ];
+            }
+            $completeData[3] = $allPerms;
         }
         return $completeData;
     }
