@@ -19,7 +19,7 @@ function printConfigMenu($menu, $data)
     }
 
     // Interactuar con el menú
-    if (!isset($data[2])) {
+    if (!isset($data[2]) && !isset($data[3])) {
         $html .= '
         <a><img class="newMenuIcon' . $classChild . '" src="imagenes/addMenu.png"
                 onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>
@@ -30,7 +30,7 @@ function printConfigMenu($menu, $data)
         <span id="menuText-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '">' . $menu[$T_NAME] . '</span>';
     
     // Interaccciones con el menú
-    if (!isset($data[2])) {
+    if (!isset($data[2]) && !isset($data[3])) {
         $html .='<a><img class="editMenuIcon" src="imagenes/editar.png"
                         onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ', \'Editar\')"/></a>
                 <a><img class="editMenuIcon" src="imagenes/deletePermission.png"
@@ -39,7 +39,7 @@ function printConfigMenu($menu, $data)
     
     $html .= printPermission($menu, $data);
     // Añadir permisos
-    if (!isset($data[2])) {
+    if (!isset($data[2]) && !isset($data[3])) {
         $html .= '  <br>
         <div newPermissionCont-' . $menu[$T_ID] . '>
             <form id="f_newPermission class="border col-sm-5">
@@ -59,7 +59,7 @@ function printConfigMenu($menu, $data)
     $html .= '</li></div>';
 
     // Si es padre y no tiene hijos crea el botón de añadir hijo
-    if (!isset($data[2])) {
+    if (!isset($data[2]) && !isset($data[3])) {
         if (!isset($menu[$submenu]) && $menu[$T_POSITION] == 0) {
             $lastSubmenu = '' . $menu[$T_ID] . '0';
             $html .=
@@ -83,7 +83,7 @@ function printConfigMenu($menu, $data)
         }
 
         $lastSubmenu = '' . $menu[$T_ID] . '0';
-        if (!isset($data[2])) {
+        if (!isset($data[2]) && !isset($data[3])) {
             echo '
             <div id=menu-' . $lastSubmenu . '>
                 <a><img class="newMenuIcon menuC" src="imagenes/addMenu.png"

@@ -7,7 +7,7 @@
     foreach ($data[0] as $menu) {
         printConfigMenu($menu, $data);
     }
-    if (!isset($data[2])) {
+    if (!isset($data[2]) && !isset($data[3])) {
         echo '
         <div id=menu-00>
                 <a><img class="newMenuIcon" src="imagenes/addMenu.png" onclick="getFormMenu(0, 0)"/></a>
