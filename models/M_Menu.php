@@ -222,4 +222,18 @@ class M_Menu extends Model {
             $this->DAO->update($SQL);
         }
     }
+
+    public function changeUserPermissionOnDB($parameters) {
+        $isEnabled = '';
+        $permissionId = '';
+        $userId = '';
+        extract($parameters);
+        if ($isEnabled == 'true') {
+            $SQL = "INSERT INTO permisosusuario (id_Permiso, id_Usuario) VALUES ($permissionId, $userId)";
+            $this->DAO->insert($SQL);
+        } else {
+            $SQL = "DELETE FROM permisosusuario WHERE id_Permiso = $permissionId AND id_Usuario = $userId";
+            $this->DAO->update($SQL);
+        }
+    }
 }

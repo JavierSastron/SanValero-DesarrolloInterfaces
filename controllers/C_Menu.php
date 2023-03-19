@@ -90,7 +90,11 @@ class C_Menu extends Controller {
     }
 
     public function changePermissionRole($parameters) {
-        $roleList = $this->model->changePermissionRoleOnDB($parameters);
+        $this->model->changePermissionRoleOnDB($parameters);
+    }
+
+    public function changeUserPermission($parameters) {
+        $this->model->changeUserPermissionOnDB($parameters);
     }
 }
 

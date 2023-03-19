@@ -266,3 +266,23 @@ function changePermissionRole(permissionId) {
         }
     })
 }
+
+function changeUserPermission(permissionId) {
+    let isEnabled = 'false'
+    if ($('#c-PermissionRole-' + permissionId).is(':checked')) {
+        isEnabled = 'true'
+    }
+    let userId = document.getElementById('select-Users').value;
+    let parameters = '&controller=Menu&method=changeUserPermission'
+        + '&isEnabled=' + isEnabled + '&permissionId=' + permissionId
+        + '&userId='+userId
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+
+        }
+    })
+}
