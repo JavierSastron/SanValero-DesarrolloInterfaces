@@ -7,6 +7,7 @@ function searchMenu() {
     let userId = document.getElementById('select-Users').value
     let parameters = '&controller=Menu&method=getConfigMenu'
         + '&roleId=' + roleId + '&userId=' + userId;
+    console.log(parameters)
     $.ajax({
         url: 'C_Ajax.php',
         type: 'POST',
@@ -214,8 +215,55 @@ function deleteRole() {
 document.getElementById('select-Roles').addEventListener("change", function () {
     let roleName = $('#select-Roles option:selected').html();
     $('#i-roleName').val(roleName);
+    showUserRoles()
+    changeLinkIcon()
 })
 
+document.getElementById('select-Users').addEventListener("change", function() {
+    showUserRoles()
+    changeLinkIcon()
+})
+
+function showUserRoles() {
+    let selectedRole = document.getElementById('select-Roles').value
+    let selectedUser = document.getElementById('select-Users').value
+    if (selectedRole != 'null' && selectedUser != 'null') {
+        let parameters = '&controller=Menu&method=showUserRoles'
+        + '&userId=' + selectedUser
+        $.ajax({
+            url: 'C_Ajax.php',
+            type: 'POST',
+            data: parameters,
+            success: function (view) {
+                $('#capaUserRoles').html(view);
+            }
+        })
+    } else {
+        $('#capaUserRoles').html("");
+    }
+}
+
+function changeLinkIcon() {
+    let selectedRole = document.getElementById('select-Roles').value
+    let selectedUser = document.getElementById('select-Users').value
+    let parameters = '&controller=Menu&method=changeLinkIcon'
+        + '&userId=' + selectedUser + '&roleId=' + selectedRole
+        $.ajax({
+            url: 'C_Ajax.php',
+            type: 'POST',
+            data: parameters,
+            success: function (view) {
+                let linkIcon = document.getElementById('linkIcon')
+                if (view == "true") {
+                    linkIcon.setAttribute("src", "imagenes/unlink.png")
+                    //linkIcon.setAttribute("onclick", "imagenes/unlink.png")
+                } else {
+                    linkIcon.setAttribute("src", "imagenes/enlazarRolUsuario.png")
+                    //linkIcon.setAttribute("onclick", "imagenes/unlink.png")
+                }
+            }
+        })
+}
 /**
  * rolesusuarios
  */

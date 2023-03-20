@@ -19,7 +19,7 @@
                     </select>
                 </div>
                 <div class="col-lg-1 d-flex align-items-end pb-2 justify-content-around">
-                    <a><img class="iconSize" src="imagenes/enlazarRolUsuario.png"
+                    <a><img id="linkIcon" class="iconSize" src="imagenes/enlazarRolUsuario.png"
                             onclick="linkRoleToUser()"/></a>
                 </div>
                 <div class="col-lg-3">
@@ -48,9 +48,11 @@
 
         </div>
     </div>
+    <div id="capaUserRoles" class="container-fluid"></div>
 
     <button type="button" class="btn btn-outline-dark mt-3 ml-3" onclick="searchMenu()">
         Buscar</button>
 </form>
+
 <br>
 <div id="capaMenuResult" class="container-fluid"></div>

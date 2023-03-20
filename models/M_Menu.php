@@ -15,7 +15,7 @@ class M_Menu extends Model {
      */
     public function getMenu($parameters) {
         $roleId = 'null';
-        $userId = '';
+        $userId = 'null';
         extract($parameters);
         $SQL = "SELECT * FROM menus
                  ORDER BY id_Padre, orden";
@@ -33,7 +33,7 @@ class M_Menu extends Model {
         $completeData[0] = $rightMenu;
         $SQL = "SELECT * FROM permisos ORDER BY id_Opcion, num_Permiso";
         $completeData[1] = $this->DAO->consult($SQL);
-        if ($roleId != 'null' && $userId != '') {
+        if ($roleId == 'null' && $userId == 'null') {
             //todo
             $SQL = "";
         } elseif ($roleId != 'null') {
@@ -207,6 +207,30 @@ class M_Menu extends Model {
 
         $SQL = "INSERT INTO rolesusuarios (id_Rol, id_Usuario) VALUES ($roleId, $userId)";
         $this->DAO->insert($SQL);
+    }
+
+    public function getUserRoles($parameters) {
+        $userId = '';
+        extract($parameters);
+        $SQL = "SELECT ro.id_Rol, r.rol
+                FROM rolesusuarios ro
+                JOIN roles r ON ro.id_Rol = r.id_Rol
+                WHERE ro.id_Usuario = $userId";
+        return $this->DAO->consult($SQL);
+    }
+
+    public function isRoleSet($parameters) {
+        $userId = '';
+        $roleId = '';
+        extract($parameters);
+        $SQL = "SELECT * FROM rolesusuarios
+                WHERE id_Rol = $roleId AND id_Usuario = $userId";
+        $userRole = $this->DAO->consult($SQL);
+        if (count($userRole) != 0) {
+            return 'true';
+        } else {
+            return 'false';
+        }
     }
 
     public function changePermissionRoleOnDB($parameters) {

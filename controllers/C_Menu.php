@@ -89,6 +89,18 @@ class C_Menu extends Controller {
         $this->model->linkRoleToUserInDB($parameters);
     }
 
+    public function showUserRoles($parameters) {
+        $route = 'views/Menu/V_Menu_UserRoles.php';
+        $roleList = $this->model->getUserRoles($parameters);
+        View::render($route, $roleList);
+    }
+
+    public function changeLinkIcon($parameters) {
+        $route = 'views/Menu/V_Menu_ReturnValue.php';
+        $isLinked = $this->model->isRoleSet($parameters);
+        View::render($route, $isLinked);
+    }
+
     public function changePermissionRole($parameters) {
         $this->model->changePermissionRoleOnDB($parameters);
     }
