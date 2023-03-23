@@ -2,8 +2,10 @@
 
 define('HOST', '127.0.0.1');
 define('USER', 'root');
-define('PASS', '');
-define('DB_NAME', '2si');
+define('PASS', '40-v&MQlPD221$)J');
+//40-v&MQlPD221$)J
+define('DB_NAME', 'id20494666_2si');
+//id20494666_2si
 
 class DAO {
     private $conexion;

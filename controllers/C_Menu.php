@@ -89,6 +89,10 @@ class C_Menu extends Controller {
         $this->model->linkRoleToUserInDB($parameters);
     }
 
+    public function unlinkRoleToUser($parameters) {
+        $this->model->unlinkRoleToUserInDB($parameters);
+    }
+
     public function showUserRoles($parameters) {
         $route = 'views/Menu/V_Menu_UserRoles.php';
         $roleList = $this->model->getUserRoles($parameters);

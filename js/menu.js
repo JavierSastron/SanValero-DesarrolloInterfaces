@@ -256,10 +256,10 @@ function changeLinkIcon() {
                 let linkIcon = document.getElementById('linkIcon')
                 if (view == "true") {
                     linkIcon.setAttribute("src", "imagenes/unlink.png")
-                    //linkIcon.setAttribute("onclick", "imagenes/unlink.png")
+                    linkIcon.setAttribute("onclick", "unlinkRoleToUser()")
                 } else {
                     linkIcon.setAttribute("src", "imagenes/enlazarRolUsuario.png")
-                    //linkIcon.setAttribute("onclick", "imagenes/unlink.png")
+                    linkIcon.setAttribute("onclick", "linkRoleToUser()")
                 }
             }
         })
@@ -292,6 +292,29 @@ function linkRoleToUser() {
 
 }
 
+function unlinkRoleToUser() {
+    if (document.getElementById('select-Users') == "") {
+        return
+    }
+    if (document.getElementById('select-Roles') == "") {
+        return
+    }
+
+    let roleId = document.getElementById('select-Roles').value
+    let userId = document.getElementById('select-Users').value
+    let parameters = '&controller=Menu&method=unlinkRoleToUser'
+        + '&roleId=' + roleId + '&userId=' + userId
+
+    $.ajax({
+        url: 'C_Ajax.php',
+        type: 'POST',
+        data: parameters,
+        success: function (view) {
+
+        }
+    })
+}
+
 /**
  * permisosrol
  */
@@ -317,7 +340,7 @@ function changePermissionRole(permissionId) {
 
 function changeUserPermission(permissionId) {
     let isEnabled = 'false'
-    if ($('#c-PermissionRole-' + permissionId).is(':checked')) {
+    if ($('#c-userRole-' + permissionId).is(':checked')) {
         isEnabled = 'true'
     }
     let userId = document.getElementById('select-Users').value;

@@ -33,13 +33,15 @@ class M_Menu extends Model {
         $completeData[0] = $rightMenu;
         $SQL = "SELECT * FROM permisos ORDER BY id_Opcion, num_Permiso";
         $completeData[1] = $this->DAO->consult($SQL);
-        if ($roleId == 'null' && $userId == 'null') {
+        if (($roleId == 'null' && $userId == 'null') ||($roleId != 'null' && $userId != 'null')) {
             //todo
             $SQL = "";
         } elseif ($roleId != 'null') {
             $SQL = "SELECT * FROM permisosrol WHERE id_Rol = $roleId";
             $completeData[2] = $this->DAO->consult($SQL);
         } elseif ($userId != '') {
+            $SQL = "SELECT * FROM permisosusuario WHERE id_Usuario = $userId";
+            $completeData[4] = $this->DAO->consult($SQL);
             $SQL = "SELECT DISTINCT permisos.id_Permiso, roles.rol
                     FROM usuarios
                     JOIN rolesusuarios ON usuarios.id_Usuario = rolesusuarios.id_Usuario
@@ -207,6 +209,15 @@ class M_Menu extends Model {
 
         $SQL = "INSERT INTO rolesusuarios (id_Rol, id_Usuario) VALUES ($roleId, $userId)";
         $this->DAO->insert($SQL);
+    }
+
+    public function unlinkRoleToUserInDB($parameters) {
+        $roleId = "";
+        $userId = "";
+        extract($parameters);
+
+        $SQL = "DELETE FROM rolesusuarios WHERE id_Rol = $roleId AND id_Usuario = $userId";
+        $this->DAO->update($SQL);
     }
 
     public function getUserRoles($parameters) {
