@@ -20,29 +20,37 @@ $html .= '<nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class=navbar-nav>';
 foreach ($data[0] as $option) {
-    if ($option[$T_PERMISSION] == $public || $option[$T_PERMISSION] == $conectado) {
-        if ($conectado == $option[$T_PERMISSION] || $option[$T_PERMISSION] == $public) {
-            if (isset($option[$child])) {
-                $html.= '<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                .$option[$T_NOMBRE].
-                '</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">';
-                foreach ($option[$child] as $submenu) {
-                    $html.= '<a class="dropdown-item" onclick="'.$submenu[$T_FUNCTION].'" href="#">
-                        '.$submenu[$T_NOMBRE].'
-                        </a>';
+        if (isset($_SESSION['permissions'][$option['id_Opcion']])) {
+            foreach ($_SESSION['permissions'][$option['id_Opcion']] as $permission) {
+                if ($permission == 'consultar') {
+                    if (isset($option[$child])) {
+                        $html.= '<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                        .$option[$T_NOMBRE].
+                        '</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">';
+                        foreach ($option[$child] as $submenu) {
+                            if (isset($_SESSION['permissions'][$submenu['id_Opcion']])) {
+                                foreach ($_SESSION['permissions'][$submenu['id_Opcion']] as $permission) {
+                                    if ($permission == 'consultar') {
+                                        $html.= '<a class="dropdown-item" onclick="'.$submenu[$T_FUNCTION].'" href="#">
+                                                    '.$submenu[$T_NOMBRE].'
+                                                </a>';
+                                    }
+                                }
+                            }
+                        }
+                        $html.= '</div>
+                                </li>';
+                    } else {
+                        $html .= '<li class="nav-item">
+                                    <a class="nav-link" href="#">'.$option[$T_NOMBRE].'</a>
+                                </li>';
+                    }
                 }
-                $html.= '</div>
-                        </li>';
-            } else {
-                $html .= '<li class="nav-item">
-                            <a class="nav-link" href="#">'.$option[$T_NOMBRE].'</a>
-                        </li>';
             }
         }
-    }
 }
 $html .=        '</ul>
             </div>

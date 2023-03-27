@@ -75,6 +75,10 @@ class C_Users extends Controller {
         }
     }
 
+    public function getUserPermission($user, $password) {
+        return $this->model->getUserPermissionFromDB(addslashes($user), $password);
+    }
+
 }
 
 ?>

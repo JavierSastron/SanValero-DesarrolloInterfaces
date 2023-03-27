@@ -28,13 +28,20 @@
                     <td><img src="imagenes/editar.png" class="functionIcon"
                             onclick="getView(\'Users\', \'userFormView\', \'bonus='.$user["id_Usuario"].'\' );"></td>
         ';
-        if ($user["activo"] == "S") {
-        $html.='<td><img src="imagenes/activo.png" class="functionIcon"
-                            onclick="changeStatus(\'estado='.$user["activo"].'&id_Usuario='.$user["id_Usuario"].'\');"></td>';
-        } else {
-        $html.='<td><img src="imagenes/noactivo.png" class="functionIcon"
-                            onclick="changeStatus(\'estado='.$user["activo"].'&id_Usuario='.$user["id_Usuario"].'\');"></td>';
+        if (isset($_SESSION['permissions'][3])) {
+            foreach ($_SESSION['permissions'][3] as $permission) {
+                if ($permission == 'cambiarEstado') {
+                    if ($user["activo"] == "S") {
+                        $html.='<td><img src="imagenes/activo.png" class="functionIcon"
+                                        onclick="changeStatus(\'estado='.$user["activo"].'&id_Usuario='.$user["id_Usuario"].'\');"></td>';
+                    } else {
+                        $html.='<td><img src="imagenes/noactivo.png" class="functionIcon"
+                                        onclick="changeStatus(\'estado='.$user["activo"].'&id_Usuario='.$user["id_Usuario"].'\');"></td>';
+                    }
+                }
+            }
         }
+        
     }
 
     $html.='</tbody>

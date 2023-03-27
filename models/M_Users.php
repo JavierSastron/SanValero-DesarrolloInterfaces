@@ -128,6 +128,32 @@ class M_Users extends Model {
 
     }
 
+    public function getUserPermissionFromDB($user, $password) {
+        $SQL = "SELECT * FROM usuarios WHERE login='$user'
+        AND pass=MD5('$password')";
+        $user = $this->DAO->consult($SQL);
+        $id_Usuario = $user[0]['id_Usuario'];
+        $SQL = "SELECT p.id_Opcion, p.num_Permiso, p.permiso FROM permisos p
+                INNER JOIN permisosusuario pu ON p.id_Permiso = pu.id_Permiso
+                WHERE pu.id_Usuario = $id_Usuario";
+        $userPermission = $this->DAO->consult($SQL);
+        $SQL = "SELECT p.id_Opcion, p.num_Permiso, p.permiso FROM permisos p
+                INNER JOIN permisosrol pr ON pr.id_Permiso =  p.id_Permiso
+                INNER JOIN rolesusuarios ru ON ru.id_Rol = pr.id_Rol
+                WHERE ru.id_Usuario = $id_Usuario";
+        $rolePermission = $this->DAO->consult($SQL);
+
+        $allPermissions = array();
+        foreach ($userPermission as $permission) {
+            $allPermissions[$permission['id_Opcion']][$permission['num_Permiso']] = $permission['permiso'];
+        }
+
+        foreach ($rolePermission as $permission) {
+            $allPermissions[$permission['id_Opcion']][$permission['num_Permiso']] = $permission['permiso'];
+        }
+
+        return $allPermissions;
+    }
 }
 
 ?>

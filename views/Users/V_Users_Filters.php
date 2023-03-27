@@ -17,8 +17,19 @@
     <br>
     <button type="button" class="btn btn-outline-dark" onclick="search()">
             Buscar Usuarios</button>
-    <button type="button" class="btn btn-outline-dark" onclick="getView('Users', 'userFormView')">
-            Nuevo Usuario</button>
+    <?php
+        if (isset($_SESSION['permissions'][3])) {
+                foreach ($_SESSION['permissions'][3] as $permission) {
+                        if ($permission == 'crear') {
+                                ?>
+                                <button type="button" class="btn btn-outline-dark" onclick="getView('Users', 'userFormView')">
+                                Nuevo Usuario</button>
+                                <?php
+                        }
+                }
+        }
+    ?>
+    
 </form>
 <br>
 <div id="capaSearchResult" class="container-fluid"></div>

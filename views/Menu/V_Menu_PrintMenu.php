@@ -9,7 +9,6 @@ function printConfigMenu($menu, $data)
     $T_ID = 'id_Opcion';
     $submenu = 'suboption';
     global $html;
-
     $html .= '<div id=menu-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '>';
     $classChild = '';
 
@@ -19,22 +18,33 @@ function printConfigMenu($menu, $data)
     }
 
     // Interactuar con el menú
-    if (!isset($data[2]) && !isset($data[3])) {
-        $html .= '
-        <a><img class="newMenuIcon' . $classChild . '" src="imagenes/addMenu.png"
-                onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>
-        <div id="menuForm-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '"
-                class="menuForm' . $classChild . '"></div>';
+    if (!isset($data[2]) && !isset($data[3]) && isset($_SESSION['permissions'][$menu[$T_ID]])) {
+        foreach ($_SESSION['permissions'][$menu[$T_ID]] as $permission) {
+            if ($permission == 'crear') {
+                $html .= '
+                    <a><img class="newMenuIcon' . $classChild . '" src="imagenes/addMenu.png"
+                        onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>
+                    <div id="menuForm-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '"
+                        class="menuForm' . $classChild . '"></div>';
+            }
+        }   
     }
+
     $html .= '<li class="list-group-item' . $classChild . '">
         <span id="menuText-' . $menu[$T_POSITION] . '' . $menu[$T_ORDER] . '">' . $menu[$T_NAME] . '</span>';
     
     // Interaccciones con el menú
-    if (!isset($data[2]) && !isset($data[3])) {
-        $html .='<a><img class="editMenuIcon" src="imagenes/editar.png"
-                        onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ', \'Editar\')"/></a>
-                <a><img class="editMenuIcon" src="imagenes/deletePermission.png"
+    if (!isset($data[2]) && !isset($data[3]) && isset($_SESSION['permissions'][$menu[$T_ID]])) {
+        foreach ($_SESSION['permissions'][$menu[$T_ID]] as $permission) {
+            if ($permission == 'editar') {
+                $html .='<a><img class="editMenuIcon" src="imagenes/editar.png"
+                        onclick="getFormMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ', \'Editar\')"/></a>';
+            }
+            if ($permission == 'cambiarEstado') {
+                $html.= '<a><img class="editMenuIcon" src="imagenes/deletePermission.png"
                         onclick="deleteMenu(' . $menu[$T_POSITION] . ',' . $menu[$T_ORDER] . ')"/></a>';
+            }
+        }
     }
     
     $html .= printPermission($menu, $data);

@@ -7,9 +7,10 @@
     $cUser = new C_Users;
     $isUser = $cUser->validateUser($user, $password);
 
-    if($user != '' && $password != '') {
-        if($isUser) {
+    if ($user != '' && $password != '') {
+        if ($isUser) {
             $_SESSION['user']=$user;
+            $_SESSION['permissions'] = $cUser->getUserPermission($user, $password);
             header('Location: index.php');
         } else {
             $msj='Datos erroneos.';
